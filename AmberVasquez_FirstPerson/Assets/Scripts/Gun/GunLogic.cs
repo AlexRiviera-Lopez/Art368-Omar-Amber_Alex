@@ -25,7 +25,7 @@ public class GunLogic : MonoBehaviour
 
 
     //public variable for text
-    public Text AmmoCountUI;
+    //public Text AmmoCountUI;
 
     float lengthSinceLastFire = 0f;
 
@@ -44,7 +44,7 @@ public class GunLogic : MonoBehaviour
    {
        currentAmmo = clipsize;
        currentAmmoHeld = MaxAmmoHeld;
-       AmmoCountUI.text = (currentAmmo.ToString()) + "/" + (currentAmmoHeld.ToString());
+       //AmmoCountUI.text = (currentAmmo.ToString()) + "/" + (currentAmmoHeld.ToString());
 
    }
 
@@ -69,7 +69,7 @@ public class GunLogic : MonoBehaviour
               currentAmmoHeld = 0;
               
           }
-          AmmoCountUI.text = (currentAmmo.ToString()) + "/" + (currentAmmoHeld.ToString());
+          //AmmoCountUI.text = (currentAmmo.ToString()) + "/" + (currentAmmoHeld.ToString());
 
       }
       //run fire function  
@@ -79,17 +79,34 @@ public class GunLogic : MonoBehaviour
     {
         //play gunshot sound
         Gunshot.Play(0);
-        Debug.Log("Boom");
+        //Debug.Log("Boom");
         RaycastHit hit;
+        Debug.DrawRay(fpsCam.transform.position, fpsCam.transform.forward, Color.red);
         if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
         //Debug.Log(hit.transform.name);
         Shatter shatter = hit.transform.GetComponent<Shatter>();
+        EnemyHealth EnemyHealth = hit.transform.GetComponent<EnemyHealth>();
+    
+
+
+
+
         //only fire code if target has script
         if(shatter != null)
             {
             shatter.ApplyDamage(damage);
+            Debug.Log("hitshattered");
+            }
+          //only fire code if target has script
+        else if(EnemyHealth != null)
+            {
+            Debug.Log("Boom");
+            EnemyHealth.ApplyDamage(damage);
             Debug.Log("hit");
+            }
+            else{
+                Debug.Log("missed");
             }
         if(hit.rigidbody != null)
         {
