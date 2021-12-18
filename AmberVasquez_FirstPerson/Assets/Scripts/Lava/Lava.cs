@@ -18,8 +18,8 @@ public class Lava : MonoBehaviour
         
     }
 	
-	void OnTriggerStay()
+	void OnTriggerStay(Collider other)
 	{
-		PlayerHealth.ApplyDamage(Damage * Time.deltaTime);
+		if(other.CompareTag("Player"))PlayerHealth.ApplyDamage(Damage * Time.deltaTime);
 	}
 }

@@ -18,8 +18,10 @@ public class Shatter : MonoBehaviour
     }
 
 //create function that takes damage
+
 public void ApplyDamage(float Damage){
-    // get damage amount 
+    
+	// get damage amount 
     currentHealth -= Damage;
     //subtract damage amount from current health
     if(currentHealth < 0)Break();
